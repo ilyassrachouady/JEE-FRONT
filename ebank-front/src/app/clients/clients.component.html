@@ -1,0 +1,47 @@
+<div class="container mt-2">
+  <ng-container *ngIf="clients | async as listClients; else failure">
+    <div class="card">
+      <div class="card-header">Clients</div>
+      <div class="card-body">
+        <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchClient()">
+          <div class = "input-group">
+            <label class="input-group-text">Keyword</label>
+            <input type="text" formControlName="keyword" class="form-control">
+            <button class="btn btn-info">Search</button>
+          </div>
+        </form>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of clients | async">
+            <td>{{c.id}}</td>
+            <td>{{c.name}}</td>
+            <td>{{c.email}}</td>
+            <td>
+              <button (click)="handleDeleteClient(c)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+            <td>
+              <button (click)="handleClientAccounts(c)" class="btn btn-success">
+                Accounts
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #failure>
+    <div class="text-danger">
+      {{error}}
+    </div>
+  </ng-template>
+</div>

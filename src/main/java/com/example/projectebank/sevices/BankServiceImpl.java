@@ -33,7 +33,7 @@ public class BankServiceImpl implements BankAccountService{
     public ClientDTO saveClient(ClientDTO clientDTO) {
         log.info("Saving new client");
         Client client = bankAccountMapper.fromClientDTO(clientDTO);
-        Client savedClient = clientRepository.save(client);
+         Client savedClient = clientRepository.save(client);
         return bankAccountMapper.fromClient(savedClient);
     }
 
@@ -76,7 +76,7 @@ public class BankServiceImpl implements BankAccountService{
     @Override
     public BankAccountDTO getBankAccount(String accountID) throws BankAccountNotFound {
         BankAccount bankAccount = bankAccountRepository.findById(accountID)
-                .orElseThrow(() -> new BankAccountNotFound("Account not found"));
+                .orElseThrow(() -> new BankAccountNotFound("Account not found" + accountID));
         if (bankAccount instanceof SavingAccount savingAccount) {
             return bankAccountMapper.fromSavingBankAccount(savingAccount);
         } else {
@@ -170,8 +170,8 @@ public class BankServiceImpl implements BankAccountService{
     @Override
     public AccountHistoryDTO getAccountHistory(String accountID, int page, int size) throws BankAccountNotFound {
         BankAccount bankAccount = bankAccountRepository.findById(accountID).orElse(null);
-        if (bankAccount == null) throw new BankAccountNotFound("Account Not Found");
-        Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountId(PageRequest.of(page, size), accountID);
+        if (bankAccount == null) throw new BankAccountNotFound("Account Not Found" + accountID);
+        Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountIdOrderByOperationDateDesc(PageRequest.of(page, size), accountID);
         AccountHistoryDTO accountHistoryDTO = new AccountHistoryDTO();
         List<AccountOperationDTO> accountOperationDTOS =  accountOperations.getContent().stream().map(op -> bankAccountMapper.fromAccountOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperationsDTOS(accountOperationDTOS);
@@ -181,6 +181,12 @@ public class BankServiceImpl implements BankAccountService{
         accountHistoryDTO.setPageSize(size);
         accountHistoryDTO.setTotalPage(accountOperations.getTotalPages());
         return accountHistoryDTO;
+    }
+
+    @Override
+    public List<ClientDTO> searchClients(String keyword) {
+        List<Client> clients = clientRepository.findByNameContains(keyword);
+        return clients.stream().map(client -> bankAccountMapper.fromClient(client)).collect(Collectors.toList());
     }
 
 

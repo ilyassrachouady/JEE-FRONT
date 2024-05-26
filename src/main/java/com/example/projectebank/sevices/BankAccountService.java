@@ -14,7 +14,7 @@ public interface BankAccountService {
     List<ClientDTO> listClients();
     BankAccountDTO getBankAccount(String accountID) throws BankAccountNotFound;
     void debit(String accountID, double amount, String description) throws BankAccountNotFound, InsufficientBalanceException;
-    void credit(String accountID, double amount, String description) throws InsufficientBalanceException, BankAccountNotFound;
+    void credit(String accountID, double amount, String description) throws  BankAccountNotFound;
     void transfer(String fromAccountID, String toAccountID, double amount) throws InsufficientBalanceException, BankAccountNotFound;
     List<BankAccountDTO> listBankAccounts();
 
@@ -27,4 +27,6 @@ public interface BankAccountService {
     List<AccountOperationDTO> accountOperationHistory(String accountID);
 
     AccountHistoryDTO getAccountHistory(String accountID, int page, int size) throws BankAccountNotFound;
+
+    List<ClientDTO> searchClients(String keyword);
 }

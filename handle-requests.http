@@ -1,0 +1,50 @@
+### Add client1
+POST http://localhost:8085/clients
+Content-Type: application/json
+
+{
+  "name": "sarah",
+  "email": "sarah@gmail.com"
+}
+
+### Add client2
+POST http://localhost:8085/clients
+Content-Type: application/json
+
+{
+  "name": "Katharina",
+  "email": "katharina@gmail.com"
+}
+
+### Add client3
+POST http://localhost:8085/clients
+Content-Type: application/json
+
+{
+  "name": "Francesco",
+  "email": "francesco@gmail.com"
+}
+
+### List all clients
+GET http://localhost:8085/clients
+
+### Update a client
+PUT http://localhost:8085/clients/4
+Content-Type: application/json
+
+{
+  "name": "Katharina",
+  "email": "katharina-1@gmail.com"
+}
+
+### Delete a client
+DELETE http://localhost:8085/clients/4
+
+### Get page operations
+GET http://localhost:8085/accounts/d24254aa-0a13-4e20-aabb-4c3199a44b3e/pageOperations
+
+### Get accounts
+
+GET http://localhost:8085/accounts
+
+
