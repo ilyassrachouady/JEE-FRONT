@@ -27,6 +27,7 @@ Content-Type: application/json
 
 ### List all clients
 GET http://localhost:8085/clients
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTY3MjQ4MzIsImlhdCI6MTcxNjcyNDIzMiwic2NvcGUiOiJVU0VSIn0.ZsRjA_eGulhQS97Oiodbhx37fAV-scWqEHPYvnTMoMo2d5RoKUnrP49xt6DtxmNDXcvX2vD5MpZ5u97ooGafFA
 
 ### Update a client
 PUT http://localhost:8085/clients/4
@@ -46,5 +47,32 @@ GET http://localhost:8085/accounts/d24254aa-0a13-4e20-aabb-4c3199a44b3e/pageOper
 ### Get accounts
 
 GET http://localhost:8085/accounts
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTY3Mzk3NzksImlhdCI6MTcxNjczOTE3OSwic2NvcGUiOiJVU0VSIn0.UpshteDwHhEqfZxeUNqTMEr7VZNFs4ZaoGfFQDuqjFZXaJWOVvROYjdFNrDsHLDXLEksHJv80q10L8Pa8vO-Iw
+#### Test the security
+
+GET http://localhost:8085/clients
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTY3MjQyODcsImlhdCI6MTcxNjcyMzY4Nywic2NvcGUiOiJBRE1JTiBVU0VSIn0.QqdziSSGNR1SVevaWGsR9pdajjmCOtHEDJBE4DAnURMCs1imbQGKiUtzBI-hNubtegehIbFSY51BAwIBxny1kA
+
+### Test profile
+GET http://localhost:8085/auth/profile
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTY3MjQyODcsImlhdCI6MTcxNjcyMzY4Nywic2NvcGUiOiJBRE1JTiBVU0VSIn0.QqdziSSGNR1SVevaWGsR9pdajjmCOtHEDJBE4DAnURMCs1imbQGKiUtzBI-hNubtegehIbFSY51BAwIBxny1kA
 
 
+### Test JWT
+POST http://localhost:8085/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=user1&password=12345
+
+### Add Client
+POST http://localhost:8085/clients
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTY3MjQ4MzIsImlhdCI6MTcxNjcyNDIzMiwic2NvcGUiOiJVU0VSIn0.ZsRjA_eGulhQS97Oiodbhx37fAV-scWqEHPYvnTMoMo2d5RoKUnrP49xt6DtxmNDXcvX2vD5MpZ5u97ooGafFA
+
+{
+  "name": "Francesco",
+  "email": "francesco@gmail.com"
+}

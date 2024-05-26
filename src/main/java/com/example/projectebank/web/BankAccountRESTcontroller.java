@@ -60,6 +60,4 @@ public class BankAccountRESTcontroller {
                 transferRequestDTO.getAmount());
     }
 
-
-
 }

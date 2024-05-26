@@ -9,7 +9,7 @@ import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
 import {MatButton} from "@angular/material/button";
 import { ClientsComponent } from './clients/clients.component';
 import { AccountsComponent } from './accounts/accounts.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatCard, MatCardModule} from "@angular/material/card";
 import {MatDivider, MatDividerModule} from "@angular/material/divider";
 import {MatTable, MatTableModule} from "@angular/material/table";
@@ -18,6 +18,10 @@ import {MatError} from "@angular/material/form-field";
 import {ReactiveFormsModule} from "@angular/forms";
 import { NewClientComponent } from './new-client/new-client.component';
 import { ClientAccountsComponent } from './client-accounts/client-accounts.component';
+import { LoginComponent } from './login/login.component';
+import { AdminTempComponent } from './admin-temp/admin-temp.component';
+import {AppHttpInterceptor} from "./interceptors/app-http.interceptor";
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,10 @@ import { ClientAccountsComponent } from './client-accounts/client-accounts.compo
     ClientsComponent,
     AccountsComponent,
     NewClientComponent,
-    ClientAccountsComponent
+    ClientAccountsComponent,
+    LoginComponent,
+    AdminTempComponent,
+    NotAuthorizedComponent
   ],
     imports: [
         BrowserModule,
@@ -42,7 +49,8 @@ import { ClientAccountsComponent } from './client-accounts/client-accounts.compo
         ReactiveFormsModule
     ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
